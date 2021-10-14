@@ -1,0 +1,25 @@
+<MacroWidget>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: 'horizontal'
+        padding: 20
+        
+        Label:
+            text: root.name
+            size_hint_x: 0.5
+        
+        Button:
+            text: 'Run'
+            on_press: root.run()
+            on_release: reverse_button.background_color = 'lime'
+            size_hint_x: 0.25
+        
+        Button:
+            id: reverse_button
+            disabled: True if root.reversible == False else False
+            text: 'Reverse' if root.reversible == True else 'Not Reversible'
+            on_press: root.revert()
+            on_release: self.background_color = [1, 1, 1, 1]
+            size_hint_x: 0.25
+            

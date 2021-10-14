@@ -1,0 +1,23 @@
+<EquipmentWidget>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: 'horizontal'
+        padding: 5
+        
+        Label:
+            text: root.name
+            size_hint_x: 0.5
+
+        ToggleButton:
+            text: 'On'
+            group: root.name
+            size_hint_x: 0.25
+            state: 'down' if root.value == True else 'normal'
+            on_press: root.postState(True)
+        ToggleButton:
+            text: 'Off'
+            group: root.name
+            size_hint_x: 0.25
+            state: 'normal' if root.value == True else 'down'
+            on_press: root.postState(False)

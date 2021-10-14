@@ -1,0 +1,47 @@
+<SystemWidget>:
+    cols: 2
+    padding: 10
+    spacing: 20
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: 0.7, 1
+        Label:
+            text: 'Name:   ' + root.server_name
+            font_size: '18sp'
+            font_name: './resources/fonts/Orbitron-Medium.ttf'
+        Label:
+            text: 'IP:   ' + str(root.server_ip)
+            font_size: '18sp'
+            font_name: './resources/fonts/Orbitron-Medium.ttf'
+        Label:
+            text: 'Reef-pi version:   ' + root.version
+            font_size: '18sp'
+            font_name: './resources/fonts/Orbitron-Medium.ttf'
+        Label:
+            text: 'Running since:   ' + root.uptime
+            font_size: '18sp'
+            font_name: './resources/fonts/Orbitron-Medium.ttf'
+        Label:
+            text: 'CPU Temp:  ' + root.cpu_temp
+            font_size: '18sp'
+            font_name: './resources/fonts/Orbitron-Medium.ttf'
+    
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: 0.3, 1
+        padding: 10
+        spacing: 20
+
+        Button:
+            text: 'Reload reef-pi'
+            on_press: root.reload()
+            disabled: True if app.config.get('admin', 'allow_reload') == 'False' else False
+        Button:
+            text: 'Restart host'
+            on_press: root.restart()
+            disabled: True if app.config.get('admin', 'allow_restart') == 'False' else False
+        Button:
+            text: 'Shutdown host'
+            on_press: root.poweroff()
+            disabled: True if app.config.get('admin', 'allow_poweroff') == 'False' else False

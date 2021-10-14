@@ -1,0 +1,47 @@
+<AtoWidget>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: 'vertical'
+        padding: 10
+        spacing: 10
+        
+        Label:
+            text: 'ATO'
+            font_size: '16sp'
+            size_hint_y: 0.1
+            halign: 'left'
+
+        Label:
+            text: str(root.value) + " s"
+            font_size: '48sp'
+            size_hint_y: 0.7
+        
+        Label:
+            text: root.name
+            font_size: '18sp'
+            size_hint_y: 0.2
+
+<DoserWidget>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: 'vertical'
+        padding: 10
+        spacing: 10
+    
+        Label:
+            text: 'DOSER'
+            font_size: '16sp'
+            size_hint_y: 0.1
+            halign: 'left'
+        
+        Label:
+            text: str(root.value) + " s"
+            font_size: '48sp'
+            size_hint_y: 0.7
+        
+        Label:
+            text: root.name
+            font_size: '18sp'
+            size_hint_y: 0.2

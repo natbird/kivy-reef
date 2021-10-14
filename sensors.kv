@@ -1,0 +1,57 @@
+<TempWidget>:
+    BoxLayout:
+        pos: root.pos
+        size: root.size
+        orientation: 'vertical'
+        padding: 20
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            Image:
+                size_hint: 0.1, 0.8
+                source: './resources/icons/sensors_highres.png'
+                allow_stretch: True
+            Label:
+                size_hint: 0.85, 0.8
+                text: str(root.value)
+                font_size: '64sp'
+                font_name: './resources/fonts/Orbitron-Medium.ttf'
+            Label:
+                size_hint: 0.05, 0.8
+                text: '°C' if root.fahrenheit == False else '°F'
+                font_size: '32sp'
+                font_name: './resources/fonts/Orbitron-Medium.ttf'
+
+        Label:
+            text: root.name
+            size_hint: 1, 0.2
+
+<PhWidget>:
+    BoxLayout:
+        pos: root.pos
+        size: root.size
+        orientation: 'vertical'
+        padding: 20
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            Image:
+                size_hint: 0.1, 0.8
+                source: './resources/icons/beaker_highres.png'
+                allow_stretch: True
+            Label:
+                size_hint: 0.85, 0.8
+                text: str(root.value)
+                font_size: '64sp'
+                font_name: './resources/fonts/Orbitron-Medium.ttf'
+            Label:
+                size_hint: 0.05, 0.8
+                text: 'pH' if root.flow_meter == False else app.config.get('sensors', 'flowmeter_unit')
+                font_size: '24sp'
+                font_name: './resources/fonts/Orbitron-Medium.ttf'
+
+        Label:
+            text: root.name
+            size_hint: 1, 0.2
