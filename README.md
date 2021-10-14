@@ -1,4 +1,4 @@
-# kivy-reef
+# Kivy Reef
 A touchscreen client for [reef-pi](https://github.com/reef-pi/reef-pi), written in Kivy and Python 3.
 
 ## Features
@@ -50,3 +50,9 @@ From the location where you have cloned extracted Kivy Reef:
 ```
 python3 main.py
 ```
+
+## Acknowledgments
+Thank you to Ranjib and the rest of the [reef-pi team](https://github.com/reef-pi/reef-pi#maintainers) for making reef-pi awesome.
+
+The [Orbitron font](https://fonts.google.com/specimen/Orbitron) is part of the Google Fonts library and is licenced under the Open Font Licence.
+All icons are from the [Google Material Design Icons](https://fonts.google.com/icons) and are licenced under the Apache License, Version 2.0.
