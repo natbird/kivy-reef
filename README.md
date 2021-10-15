@@ -33,6 +33,7 @@ Kivy Reef can be run either as a desktop application on Linux / MacOS / Windows 
 ### Dependencies
 - Python 3.6+
 - [Python Requests library](https://pypi.org/project/requests/)
+- [Eclipse Paho MQTT Python client library](https://pypi.org/project/paho-mqtt/)
 - [Kivy 2.0.0](https://kivy.org/doc/stable/gettingstarted/installation.html) If installing on a Raspberry Pi, you must first install the [required dependencies](https://kivy.org/doc/stable/installation/installation-rpi.html#install-source-rpi), including compiling SLD2 if you intend to run without X11/Wayland (see further below).
 
 ### Running without X11/Wayland
