@@ -1,0 +1,36 @@
+<LightButton@ButtonBehavior+BoxLayout>
+    orientation: 'vertical'
+    
+    image_source: ''
+    top_label_text: 'Default'
+    bottom_label_text: 'Default'
+    
+    always_release: False
+    on_press: button_image.color = 'yellow'
+    on_release: button_image.color = 'white'
+
+    Label:
+        id: button_top_label
+        text: root.top_label_text
+        font_size: '10sp'
+        size_hint_y: 0.15
+    Image:
+        id: button_image
+        source: root.image_source
+        size_hint_y: 0.55
+        allow_stretch: True
+        keep_ratio: True
+    Label:
+        id: button_bottom_label
+        text: root.bottom_label_text
+        font_size: '20sp'
+        size_hint_y: 0.3
+
+<MqttWidget>:
+    LightButton:
+        top_label_text: 'MQTT'
+        bottom_label_text: root.name
+        image_source: './resources/icons/bulb_highres.png'
+        on_press: root.pressed()
+        pos: root.pos
+        size: root.size

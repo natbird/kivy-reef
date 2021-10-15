@@ -14,11 +14,12 @@ from sensors import TempDict, PhDict
 from equipment import EquipmentDict
 from usage import AtoDict, DoserDict
 from macros import MacroDict
+from mqtt import MqttConnection
 
 class MyScreenManager(ScreenManager):
 
     screen_list = [
-        'Home', 'Sensors', 'Equipment', 'Usage', 'Macros', 'System'
+        'Home', 'Sensors', 'Equipment', 'Lights', 'Usage', 'Macros', 'System'
     ]
 
     def __init__(self, **kwargs):
@@ -66,6 +67,7 @@ class MainWindow(GridLayout):
 
 class ReefpiApp(App):
     connection = ObjectProperty(None)
+    mqtt_connection = ObjectProperty(None)
     reconnect_timer = ObjectProperty(None)
     connected = BooleanProperty(False)
     status = StringProperty('')
@@ -107,6 +109,13 @@ class ReefpiApp(App):
             'ato_ignore' : '',
             'doser_ignore' : ''
         })
+        config.setdefaults('mqtt', {
+            'enable' : 'false',
+            'broker' : '127.0.0.1',
+            'port' : '1883',
+            'keepalive' : 60,
+            'topic1' : ''
+        })
     
     def build_widgets(self):
         """ Build widgets and populate the dictionaries """
@@ -138,6 +147,10 @@ class ReefpiApp(App):
             # If an initial connection cannot be established, retry at set intervals
             self.reconnect_timer = Clock.schedule_interval(self.connect, int(config.get('server', 'reconnect_interval')))
         
+        # If MQTT support is enabled, create a connection to the MQTT broker
+        if self.config.get('mqtt', 'enable') == 'true':
+            self.mqtt_connection = MqttConnection(self.config.get('mqtt', 'broker'), self.config.get('mqtt', 'port'), self.config.get('mqtt', 'keepalive'))
+
         return MainWindow()
 
 if __name__ == '__main__':

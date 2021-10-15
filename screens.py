@@ -4,8 +4,10 @@ from kivy.clock import Clock
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
+from kivy.uix.button import Button
 
 from system import SystemWidget
+from mqtt import MqttWidget
 
 Builder.load_file("screens.kv")
 
@@ -16,6 +18,8 @@ def ScreenMaker(widget_screen_type, name):
         new_screen = SensorsScreen(name=name)
     elif widget_screen_type == 'Equipment':
         new_screen = EquipmentScreen(name=name)
+    elif widget_screen_type == 'Lights':
+        new_screen = LightsScreen(name=name)
     elif widget_screen_type == 'Usage':
         new_screen = UsageScreen(name=name)
     elif widget_screen_type == 'Macros':
@@ -33,6 +37,14 @@ class SystemScreen(Screen):
     def __init__(self, **kwargs) -> None:
         super(SystemScreen, self).__init__(**kwargs)
         self.add_widget(SystemWidget(App.get_running_app().connection))
+
+class LightsScreen(Screen):
+    def __init__(self, **kwargs) -> None:
+        super(LightsScreen, self).__init__(**kwargs)
+        layout = GridLayout(cols=3, padding=20, spacing=30)
+        self.add_widget(layout)
+        if App.get_running_app().mqtt_connection:
+            layout.add_widget(MqttWidget(App.get_running_app().mqtt_connection, App.get_running_app().config.get('mqtt', 'topic1'), App.get_running_app().config.get('mqtt', 'topic1_name')))
 
 class WidgetScreen(Screen):
     layout = None

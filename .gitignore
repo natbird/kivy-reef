@@ -1,3 +1,9 @@
+# Local config file
+reefpi.ini
+
+# MacOS DS Store files
+.DS_STORE
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
