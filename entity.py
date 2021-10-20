@@ -133,11 +133,12 @@ class EntityDict(EventDispatcher):
         """ Creates initial entities and populates the EntityDict """
         query_list = self.connection.list_query(self.dict_type)
         
-        for item in query_list:
-            attributes = self.___buildAttributes(item)
-            new_item = self.createItem(attributes, self.connection)
-            if new_item:
-                self.addItem(attributes.get('id'), new_item)
+        if query_list:
+            for item in query_list:
+                attributes = self.___buildAttributes(item)
+                new_item = self.createItem(attributes, self.connection)
+                if new_item:
+                    self.addItem(attributes.get('id'), new_item)
     
     def updateDict(self, dt):
         """ Refresh the list of items from Reef-pi and update the dictionary """

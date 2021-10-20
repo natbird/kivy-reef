@@ -71,9 +71,13 @@ class SensorsScreen(WidgetScreen):
 
     def __init__(self, **kwargs) -> None:
         self.temp_entities = App.get_running_app().tc_dict
-        self.temp_entities.changedBind(self.recreateWidgets) # Bind the changed property to the recreateWidgets function
+        if self.temp_entities:
+            self.temp_entities.changedBind(self.recreateWidgets) # Bind the changed property to the recreateWidgets function
+        
         self.ph_entities = App.get_running_app().ph_dict
-        self.ph_entities.changedBind(self.recreateWidgets) # Bind the changed property to the recreateWidgets function
+        if self.ph_entities:
+            self.ph_entities.changedBind(self.recreateWidgets) # Bind the changed property to the recreateWidgets function
+
         if self.temp_entities or self.ph_entities:
             self.entities = 1
         super(SensorsScreen, self).__init__(**kwargs)
@@ -98,7 +102,9 @@ class EquipmentScreen(WidgetScreen):
 
     def __init__(self, **kwargs) -> None:
         self.entities = App.get_running_app().equipment_dict
-        self.entities.changedBind(self.recreateWidgets) # Bind the changed property to the recreateWidgets function
+
+        if self.entities:
+            self.entities.changedBind(self.recreateWidgets) # Bind the changed property to the recreateWidgets function
         super(EquipmentScreen, self).__init__(**kwargs)
 
 class UsageScreen(WidgetScreen):
@@ -107,9 +113,13 @@ class UsageScreen(WidgetScreen):
 
     def __init__(self, **kwargs) -> None:
         self.ato_entities = App.get_running_app().ato_dict
-        self.ato_entities.changedBind(self.recreateWidgets) # Bind the changed property to the recreateWidgets function
+        if self.ato_entities:
+            self.ato_entities.changedBind(self.recreateWidgets) # Bind the changed property to the recreateWidgets function
+        
         self.doser_entities = App.get_running_app().doser_dict
-        self.doser_entities.changedBind(self.recreateWidgets) # Bind the changed property to the recreateWidgets function
+        if self.doser_entities:
+            self.doser_entities.changedBind(self.recreateWidgets) # Bind the changed property to the recreateWidgets function
+        
         if self.ato_entities or self.doser_entities:
             self.entities = 1
         super(UsageScreen, self).__init__(**kwargs)
@@ -134,5 +144,6 @@ class MacrosScreen(WidgetScreen):
 
     def __init__(self, **kwargs) -> None:
         self.entities = App.get_running_app().macro_dict
-        self.entities.changedBind(self.recreateWidgets) # Bind the changed property to the recreateWidgets function
+        if self.entities:
+            self.entities.changedBind(self.recreateWidgets) # Bind the changed property to the recreateWidgets function
         super(MacrosScreen, self).__init__(**kwargs)
