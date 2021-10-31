@@ -85,9 +85,7 @@ class ApiConnection():
             url = self.___api_url + ApiConnection.temperature_url
         elif category == 'equipment':
             url = self.___api_url + ApiConnection.equipment_url
-        elif category == 'ph':
-            url = self.___api_url + ApiConnection.phprobe_url
-        elif category == 'flowmeter':
+        elif category == 'ph' or category == 'flowmeter':
             url = self.___api_url + ApiConnection.phprobe_url
         elif category == 'ato':
             url = self.___api_url + ApiConnection.ato_url
