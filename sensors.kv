@@ -48,7 +48,7 @@
                 font_name: './resources/fonts/Orbitron-Medium.ttf'
             Label:
                 size_hint: 0.05, 0.8
-                text: 'pH' if root.flow_meter == False else app.config.get('sensors', 'flowmeter_unit')
+                text: 'pH' if root.entity_type == 'ph' else app.config.get('sensors', 'flowmeter_unit')
                 font_size: '24sp'
                 font_name: './resources/fonts/Orbitron-Medium.ttf'
 

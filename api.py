@@ -87,6 +87,8 @@ class ApiConnection():
             url = self.___api_url + ApiConnection.equipment_url
         elif category == 'ph':
             url = self.___api_url + ApiConnection.phprobe_url
+        elif category == 'flowmeter':
+            url = self.___api_url + ApiConnection.phprobe_url
         elif category == 'ato':
             url = self.___api_url + ApiConnection.ato_url
         elif category == 'inlet':
@@ -151,6 +153,15 @@ class ApiConnection():
             if r:
                 return r
 
+    def readings_query(self, category, id):
+        """ Returns a list of current and historical readings """
+        url = self.___getUrl(category)
+        if url:
+            r = self.___api_get(f'{url}/{id}/readings')
+            
+            if r:
+                return r
+    
     def state_query(self, category, id):        
         """ Return the current state of an entity """
         url = self.___getUrl(category)

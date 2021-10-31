@@ -34,14 +34,14 @@ class PhWidget(Entity):
     """ pH probe object """
     value = NumericProperty(0)
     update_interval = 60
-    entity_type = 'ph'
-    flow_meter = BooleanProperty(False)
 
     def __init__(self, widget_id, widget_name, c):
         super(PhWidget, self).__init__(widget_id, widget_name, c)
         # Check whether the pH entity is actually a flow meter
         if App.get_running_app().config.get('sensors', 'flowmeter_name') in self.name:
-            self.flow_meter = True
+            self.entity_type = 'flowmeter'
+        else:
+            self.entity_type = 'ph'
         self.update()
     
 class PhDict(EntityDict):

@@ -7,6 +7,7 @@ class Entity(Widget):
     """ Base entity for reef-pi entities to inherit """
     id = NumericProperty(0)
     name = StringProperty('')
+    entity_type = StringProperty('')
     update_interval = 0
 
     def __init__(self, widget_id, widget_name, c):
@@ -26,34 +27,46 @@ class Entity(Widget):
         new_value = False
 
         if self.entity_type == 'temperature':
-            new_value = self.___update_reading()
+            new_value = round(self.___get_current_reading(), 2)
         elif self.entity_type == 'ph':
-            new_value = self.___update_reading()
+            new_value = round(self.___get_last_reading(), 2)
+        elif self.entity_type == 'flowmeter':
+            new_value = round(self.___get_current_reading(), None)
         elif self.entity_type == 'equipment':
-            new_value = self.___update_state()
+            new_value = self.___get_state()
         elif self.entity_type == 'ato':
-            new_value = self.___update_usage()
+            new_value = self.___get_usage()
         elif self.entity_type == 'doser':
-            new_value = self.___update_usage()
+            new_value = self.___get_usage()
         else:
             print("Entity type does not support update method.")
         
         if new_value:
             self.value = new_value
 
-    def ___update_reading(self):
+    def ___get_current_reading(self):
+        """ Return the current reading using the 'read' query """
         new_reading = self.connection.read_query(category=self.entity_type, id=self.id)
         
         if new_reading:
             return new_reading
     
-    def ___update_state(self):
+    def ___get_last_reading(self):
+        """ Return the last reading from a list of readings """
+        data = self.connection.readings_query(category=self.entity_type, id=self.id)
+        
+        if data:
+            last_reading = list(data.get('current'))[-1:] # Turn the dictionary into a list and returns the last item
+            return last_reading[0].get('value')
+
+    def ___get_state(self):
+        """ Returns the current state """
         new_reading = self.connection.state_query(category=self.entity_type, id=self.id)
         
         if new_reading:
             return new_reading
     
-    def ___update_usage(self):
+    def ___get_usage(self):
         """ Return usage in the last 24 hours """
         new_reading = self.connection.usage_query(category=self.entity_type, id=self.id)
         
