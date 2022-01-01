@@ -151,6 +151,15 @@ class ApiConnection():
             if r:
                 return r
 
+    def current_read_query(self, category, id):
+        """ Returns the current reading of a temperature sensor """
+        url = self.___getUrl(category)
+        if url:
+            r = self.___api_get(f'{url}/{id}/current_reading')
+            
+            if r:
+                return r
+
     def readings_query(self, category, id):
         """ Returns a list of current and historical readings """
         url = self.___getUrl(category)

@@ -31,7 +31,7 @@ class Entity(Widget):
         elif self.entity_type == 'ph':
             new_value = round(self.___get_last_reading(), 2)
         elif self.entity_type == 'flowmeter':
-            new_value = round(self.___get_current_reading(), None)
+            new_value = round(self.___get_last_reading(), 0)
         elif self.entity_type == 'equipment':
             new_value = self.___get_state()
         elif self.entity_type == 'ato':
@@ -46,10 +46,10 @@ class Entity(Widget):
 
     def ___get_current_reading(self):
         """ Return the current reading using the 'read' query """
-        new_reading = self.connection.read_query(category=self.entity_type, id=self.id)
+        new_reading = self.connection.current_read_query(category=self.entity_type, id=self.id)
         
         if new_reading:
-            return new_reading
+            return new_reading.get('temperature')
     
     def ___get_last_reading(self):
         """ Return the last reading from a list of readings """
