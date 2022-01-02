@@ -1,5 +1,5 @@
 # Local config file
-reefpi.ini
+*.ini
 
 # MacOS DS Store files
 .DS_STORE

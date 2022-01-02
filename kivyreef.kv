@@ -1,21 +1,21 @@
 #:import ButtonBehavior kivy.uix.behaviors
 #:import Image kivy.uix.image
 
-<Widget>:
-    canvas.after:
-        Line:
-            rectangle: self.x+1,self.y+1,self.width-1,self.height-1
-            dash_offset: 5
-            dash_length: 3
+# <Widget>:
+#     canvas.after:
+#         Line:
+#             rectangle: self.x+1,self.y+1,self.width-1,self.height-1
+#             dash_offset: 5
+#             dash_length: 3
 
-<StackLayout>:
-    canvas.after:
-        Color:
-            rgb: 1,0,0
-        Line:
-            rectangle: self.x+1,self.y+1,self.width-1,self.height-1
-        Color:
-            rgb: 1,1,1
+# <StackLayout>:
+#     canvas.after:
+#         Color:
+#             rgb: 1,0,0
+#         Line:
+#             rectangle: self.x+1,self.y+1,self.width-1,self.height-1
+#         Color:
+#             rgb: 1,1,1
 
 <NavButton@ButtonBehavior+Image>
     size: self.texture_size
