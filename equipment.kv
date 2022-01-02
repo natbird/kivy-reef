@@ -1,22 +1,24 @@
-<EquipmentWidget>:
+<EquipmentWidget>
     BoxLayout:
         size: root.size
         pos: root.pos
         orientation: 'horizontal'
-        padding: 5
         
-        Label:
+        DLabel:
             text: root.name
             size_hint_x: 0.5
+            font_size: self.height / 3
 
-        ToggleButton:
+        DToggleButton:
             text: 'On'
+            font_size: self.height / 3
             group: root.name
             size_hint_x: 0.25
             state: 'down' if root.value == True else 'normal'
             on_press: root.postState(True)
-        ToggleButton:
+        DToggleButton:
             text: 'Off'
+            font_size: self.height / 3
             group: root.name
             size_hint_x: 0.25
             state: 'normal' if root.value == True else 'down'

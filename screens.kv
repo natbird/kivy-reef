@@ -17,50 +17,38 @@
         size_hint_y: 0.7
         allow_stretch: True
         keep_ratio: True
-    Label:
+    DLabel:
         id: button_label
         text: root.label_text
-        font_size: '20sp'
+        font_size: self.height / 1.5
         size_hint_y: 0.3
 
 <HomeScreen>:
     GridLayout:
-        cols: 3
-        padding: 10
+        cols: 3 if app.config.get('display', 'orientation') == 'horizontal' else 2
+        padding: 20
         spacing: 20
         HomeScreenButton:
             label_text: "Sensors"
             image_source: './resources/icons/sensors_highres.png'
-            size_hint_x: 0.33
-            size_hint_y: 0.5
             on_press: app.root.goScreen(self, screen='Sensors')
         HomeScreenButton:
             label_text: "Equipment"
             image_source: './resources/icons/equipment_highres.png'
-            size_hint_x: 0.33
-            size_hint_y: 0.5
             on_press: app.root.goScreen(self, screen='Equipment')
         HomeScreenButton:
             label_text: "Lights"
             image_source: './resources/icons/lights_highres.png'
-            size_hint_x: 0.33
-            size_hint_y: 0.5
             on_press: app.root.goScreen(self, screen='Lights')
         HomeScreenButton:
             label_text: "Usage"
             image_source: './resources/icons/usage_highres.png'
-            size_hint_x: 0.33
-            size_hint_y: 0.5
             on_press: app.root.goScreen(self, screen='Usage')
         HomeScreenButton:
             label_text: "Macros"
             image_source: './resources/icons/macros_highres.png'
-            size_hint_x: 0.33
-            size_hint_y: 0.5
             on_press: app.root.goScreen(self, screen='Macros')
         HomeScreenButton:
             label_text: "System"
             image_source: './resources/icons/settings_highres.png'
-            size_hint_x: 0.33
-            size_hint_y: 0.5
             on_press: app.root.goScreen(self, screen='System')

@@ -1,0 +1,94 @@
+#:import ButtonBehavior kivy.uix.behaviors
+#:import Image kivy.uix.image
+
+<Widget>:
+    canvas.after:
+        Line:
+            rectangle: self.x+1,self.y+1,self.width-1,self.height-1
+            dash_offset: 5
+            dash_length: 3
+
+<StackLayout>:
+    canvas.after:
+        Color:
+            rgb: 1,0,0
+        Line:
+            rectangle: self.x+1,self.y+1,self.width-1,self.height-1
+        Color:
+            rgb: 1,1,1
+
+<NavButton@ButtonBehavior+Image>
+    size: self.texture_size
+    allow_stretch: False
+    keep_ratio: True
+    on_press: self.color = (0, 0, 0, 1)
+    on_release: self.color = (1, 1, 1, 1)
+
+<DLabel@Label>
+    font_name: './resources/fonts/Orbitron-Medium.ttf'
+    text_size: self.width, self.height
+    size: self.texture_size
+    max_lines: 1
+    halign: 'center'
+    valign: 'middle'
+
+<DButton@Button>
+    font_name: './resources/fonts/Orbitron-Medium.ttf'
+    text_size: self.width, self.height
+    size: self.texture_size
+    halign: 'center'
+    valign: 'middle'
+
+<DToggleButton@ToggleButton>
+    font_name: './resources/fonts/Orbitron-Medium.ttf'
+    text_size: self.width, self.height
+    size: self.texture_size
+    halign: 'center'
+    valign: 'middle'
+
+<MainWindow>:
+    id: MainWindow
+    rows: 3
+
+<TopBar>:
+    size_hint: (1,0.10)
+    cols: 4
+
+    NavButton:
+        source: './resources/icons/menu.png'
+        size_hint_x: 0.15
+        on_press: root.parent.goScreen(self, screen='Home')
+    NavButton:
+        source: './resources/icons/back.png'
+        size_hint_x: 0.15
+        on_press: root.parent.prevScreen(self)
+    DLabel:
+        text: app.displayed_screen
+        font_size: self.height / 2
+        font_name: './resources/fonts/Orbitron-Bold.ttf'
+    NavButton:
+        source: './resources/icons/forward.png'
+        size_hint_x: 0.15
+        on_press: root.parent.nextScreen(self)
+
+<MyScreenManager>:
+    size_hint: (1,0.8)
+
+<StatusBar>:
+    size_hint: (1,0.1)
+
+    BoxLayout:
+        orientation: 'horizontal'
+        DLabel:
+            size_hint_x: 0.3
+            text: 'CPU temp:' + app.cpu_temp if app.displayed_screen == 'Home' and app.config.get('home', 'show_cpu_temp') == 'true' else ''
+            font_size: self.height / 4
+        DLabel:
+            size_hint_x: 0.3
+            id: status_text
+            text: 'Status: ' + app.status
+            font_size: self.height / 4
+        DLabel:
+            size_hint_x: 0.3
+            text: 'Reef-pi v.' + app.reefpi_version if app.displayed_screen == 'Home' and app.config.get('home', 'show_version') == 'true' else ''
+            font_size: self.height / 4

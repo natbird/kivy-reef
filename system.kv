@@ -1,47 +1,47 @@
+<SystemLabel@DLabel>
+    font_size: self.width / 15
+
 <SystemWidget>:
-    cols: 2
+    cols: 2 if app.config.get('display', 'orientation') == 'horizontal' else None
+    rows: None if app.config.get('display', 'orientation') == 'horizontal' else 2
+    spacing: 10
     padding: 10
-    spacing: 20
 
     BoxLayout:
         orientation: 'vertical'
         size_hint: 0.7, 1
-        Label:
+        SystemLabel:
             text: 'Name:   ' + root.server_name
-            font_size: '18sp'
-            font_name: './resources/fonts/Orbitron-Medium.ttf'
-        Label:
+        SystemLabel:
             text: 'IP:   ' + str(root.server_ip)
-            font_size: '18sp'
-            font_name: './resources/fonts/Orbitron-Medium.ttf'
-        Label:
+        SystemLabel:
             text: 'Reef-pi version:   ' + root.version
-            font_size: '18sp'
-            font_name: './resources/fonts/Orbitron-Medium.ttf'
-        Label:
+        SystemLabel:
             text: 'Running since:   ' + root.uptime
-            font_size: '18sp'
-            font_name: './resources/fonts/Orbitron-Medium.ttf'
-        Label:
+        SystemLabel:
             text: 'CPU Temp:  ' + root.cpu_temp
-            font_size: '18sp'
-            font_name: './resources/fonts/Orbitron-Medium.ttf'
     
     BoxLayout:
         orientation: 'vertical'
         size_hint: 0.3, 1
-        padding: 10
-        spacing: 20
+        padding: 0
+        spacing: 10
 
-        Button:
+        DButton:
             text: 'Reload reef-pi'
+            background_color: 'green'
+            font_size: self.width / 10
             on_press: root.reload()
             disabled: True if app.config.get('admin', 'allow_reload') == 'False' else False
-        Button:
+        DButton:
             text: 'Restart host'
+            background_color: 'orange'
+            font_size: self.width / 10
             on_press: root.restart()
             disabled: True if app.config.get('admin', 'allow_restart') == 'False' else False
-        Button:
+        DButton:
             text: 'Shutdown host'
+            background_color: 'red'
+            font_size: self.width / 10
             on_press: root.poweroff()
             disabled: True if app.config.get('admin', 'allow_poweroff') == 'False' else False

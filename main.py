@@ -65,7 +65,7 @@ class MainWindow(GridLayout):
         self.sm.current = str(self.sm.previous())
         App.get_running_app().displayed_screen = self.sm.current
 
-class ReefpiApp(App):
+class KivyReefApp(App):
     connection = ObjectProperty(None)
     mqtt_connection = ObjectProperty(None)
     reconnect_timer = ObjectProperty(None)
@@ -85,6 +85,9 @@ class ReefpiApp(App):
     doser_dict = ObjectProperty(None)
     
     def build_config(self, config):
+        config.setdefaults('display', {
+            'orientation': 'vertical'
+        })
         config.setdefaults('server', {
             'host': 'http://127.0.0.1',
             'user_name': 'reef-pi',
@@ -154,5 +157,5 @@ class ReefpiApp(App):
         return MainWindow()
 
 if __name__ == '__main__':
-    ReefpiApp().run()
+    KivyReefApp().run()
 

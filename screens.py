@@ -3,6 +3,7 @@ from kivy.lang import Builder
 from kivy.clock import Clock
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.layout import Layout
 from kivy.uix.screenmanager import Screen
 from kivy.uix.button import Button
 
@@ -41,7 +42,7 @@ class SystemScreen(Screen):
 class LightsScreen(Screen):
     def __init__(self, **kwargs) -> None:
         super(LightsScreen, self).__init__(**kwargs)
-        layout = GridLayout(cols=3, padding=20, spacing=30)
+        layout = GridLayout(cols=2, padding=10, spacing=10)
         self.add_widget(layout)
         if App.get_running_app().mqtt_connection:
             layout.add_widget(MqttWidget(App.get_running_app().mqtt_connection, App.get_running_app().config.get('mqtt', 'topic1'), App.get_running_app().config.get('mqtt', 'topic1_name')))
@@ -66,10 +67,14 @@ class WidgetScreen(Screen):
         self.entities.changed = False
 
 class SensorsScreen(WidgetScreen):
-    layout = GridLayout(cols=2, padding=20, spacing=30)
     entities = None
 
     def __init__(self, **kwargs) -> None:
+        if App.get_running_app().config.get('display', 'orientation') == 'horizontal':
+            self.layout = GridLayout(cols=2, padding=10, spacing=10)
+        else:
+            self.layout = GridLayout(cols=1, padding=10, spacing=10)
+        
         self.temp_entities = App.get_running_app().tc_dict
         if self.temp_entities:
             self.temp_entities.changedBind(self.recreateWidgets) # Bind the changed property to the recreateWidgets function
@@ -98,7 +103,7 @@ class SensorsScreen(WidgetScreen):
         self.ph_entities.changed = False
 
 class EquipmentScreen(WidgetScreen):
-    layout = BoxLayout(orientation='vertical')
+    layout = BoxLayout(orientation='vertical', padding=10)
 
     def __init__(self, **kwargs) -> None:
         self.entities = App.get_running_app().equipment_dict
@@ -108,10 +113,14 @@ class EquipmentScreen(WidgetScreen):
         super(EquipmentScreen, self).__init__(**kwargs)
 
 class UsageScreen(WidgetScreen):
-    layout = GridLayout(cols=4)
     entities = None
 
     def __init__(self, **kwargs) -> None:
+        if App.get_running_app().config.get('display', 'orientation') == 'horizontal':
+            self.layout = GridLayout(cols=3, padding=10, spacing=15)
+        else:
+            self.layout = GridLayout(cols=2, padding=10, spacing=15)
+
         self.ato_entities = App.get_running_app().ato_dict
         if self.ato_entities:
             self.ato_entities.changedBind(self.recreateWidgets) # Bind the changed property to the recreateWidgets function
@@ -140,7 +149,7 @@ class UsageScreen(WidgetScreen):
         self.doser_entities.changed = False
 
 class MacrosScreen(WidgetScreen):
-    layout = BoxLayout(orientation='vertical')
+    layout = BoxLayout(orientation='vertical', padding=10)
 
     def __init__(self, **kwargs) -> None:
         self.entities = App.get_running_app().macro_dict
