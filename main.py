@@ -83,7 +83,9 @@ class KivyReefApp(App):
     inlet_dict = ObjectProperty(None)
     macro_dict = ObjectProperty(None)
     doser_dict = ObjectProperty(None)
-    
+
+    use_kivy_settings = True
+
     def build_config(self, config):
         config.setdefaults('display', {
             'orientation': 'vertical'
@@ -117,8 +119,12 @@ class KivyReefApp(App):
             'broker' : '127.0.0.1',
             'port' : '1883',
             'keepalive' : 60,
-            'topic1' : ''
+            'topic1' : '',
+            'topic1_name' : ''
         })
+    
+    def build_settings(self, settings):
+        settings.add_json_panel('Kivy Reef', self.config, filename='settings.json')
     
     def build_widgets(self):
         """ Build widgets and populate the dictionaries """
@@ -151,7 +157,7 @@ class KivyReefApp(App):
             self.reconnect_timer = Clock.schedule_interval(self.connect, int(config.get('server', 'reconnect_interval')))
         
         # If MQTT support is enabled, create a connection to the MQTT broker
-        if self.config.get('mqtt', 'enable') == 'true':
+        if self.config.get('mqtt', 'enable') == '1':
             self.mqtt_connection = MqttConnection(self.config.get('mqtt', 'broker'), self.config.get('mqtt', 'port'), self.config.get('mqtt', 'keepalive'))
 
         return MainWindow()

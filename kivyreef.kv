@@ -81,7 +81,7 @@
         orientation: 'horizontal'
         DLabel:
             size_hint_x: 0.3
-            text: 'CPU temp:' + app.cpu_temp if app.displayed_screen == 'Home' and app.config.get('home', 'show_cpu_temp') == 'true' else ''
+            text: 'CPU temp:' + app.cpu_temp if app.displayed_screen == 'Home' and app.config.get('home', 'show_cpu_temp') == '1' else ''
             font_size: self.height / 4
         DLabel:
             size_hint_x: 0.3
@@ -90,5 +90,5 @@
             font_size: self.height / 4
         DLabel:
             size_hint_x: 0.3
-            text: 'Reef-pi v.' + app.reefpi_version if app.displayed_screen == 'Home' and app.config.get('home', 'show_version') == 'true' else ''
+            text: 'Reef-pi v.' + app.reefpi_version if app.displayed_screen == 'Home' and app.config.get('home', 'show_version') == '1' else ''
             font_size: self.height / 4

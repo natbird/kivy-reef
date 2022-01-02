@@ -28,20 +28,23 @@
         spacing: 10
 
         DButton:
+            text: 'KivyReef Settings'
+            on_press: app.open_settings()
+        DButton:
             text: 'Reload reef-pi'
             background_color: 'green'
             font_size: self.width / 10
             on_press: root.reload()
-            disabled: True if app.config.get('admin', 'allow_reload') == 'False' else False
+            disabled: True if app.config.get('admin', 'allow_reload') == '0' else False
         DButton:
             text: 'Restart host'
             background_color: 'orange'
             font_size: self.width / 10
             on_press: root.restart()
-            disabled: True if app.config.get('admin', 'allow_restart') == 'False' else False
+            disabled: True if app.config.get('admin', 'allow_restart') == '0' else False
         DButton:
             text: 'Shutdown host'
             background_color: 'red'
             font_size: self.width / 10
             on_press: root.poweroff()
-            disabled: True if app.config.get('admin', 'allow_poweroff') == 'False' else False
+            disabled: True if app.config.get('admin', 'allow_poweroff') == '0' else False
