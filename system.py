@@ -1,9 +1,10 @@
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.clock import Clock
+from kivy.core.window import Window
 from kivy.uix.widget import Widget
 from kivy.uix.gridlayout import GridLayout
-from kivy.properties import NumericProperty, StringProperty, BooleanProperty
+from kivy.properties import NumericProperty, StringProperty, BooleanProperty, OptionProperty
 
 from requests import ConnectionError, HTTPError
 
@@ -19,11 +20,14 @@ class SystemWidget(GridLayout, Widget):
     entity_type = 'reefpi'
     update_interval = 10
 
+    screen_orientation = OptionProperty("horizontal", options=["vertical", "horizontal"])
+
     def __init__(self, c):
         super(SystemWidget, self).__init__()
         self.connection = c
         self.update_timer = Clock.schedule_interval(self.update, self.update_interval)
         self.update()
+        Window.bind(on_resize=self.getOrientation)
 
     def update(self, dt=None):
         if App.get_running_app().connected:
@@ -39,3 +43,9 @@ class SystemWidget(GridLayout, Widget):
     
     def reload(self):
         self.connection.api_post(category='system', command='reload')
+
+    def getOrientation(self, *args):
+        if Window.height < Window.width:
+            self.screen_orientation = 'horizontal'
+        else:
+            self.screen_orientation = 'vertical'

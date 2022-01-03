@@ -1,4 +1,5 @@
 import kivy
+from kivy.event import EventDispatcher
 kivy.require("2.0.0")
 
 from kivy.app import App
@@ -65,7 +66,7 @@ class MainWindow(GridLayout):
         self.sm.current = str(self.sm.previous())
         App.get_running_app().displayed_screen = self.sm.current
 
-class KivyReefApp(App):
+class KivyReefApp(App, EventDispatcher):
     connection = ObjectProperty(None)
     mqtt_connection = ObjectProperty(None)
     reconnect_timer = ObjectProperty(None)
@@ -159,9 +160,8 @@ class KivyReefApp(App):
         # If MQTT support is enabled, create a connection to the MQTT broker
         if self.config.get('mqtt', 'enable') == '1':
             self.mqtt_connection = MqttConnection(self.config.get('mqtt', 'broker'), self.config.get('mqtt', 'port'), self.config.get('mqtt', 'keepalive'))
-
+        
         return MainWindow()
 
 if __name__ == '__main__':
     KivyReefApp().run()
-

@@ -2,8 +2,8 @@
     font_size: self.width / 15
 
 <SystemWidget>:
-    cols: 2 if app.config.get('display', 'orientation') == 'horizontal' else None
-    rows: None if app.config.get('display', 'orientation') == 'horizontal' else 2
+    cols: 2 if root.screen_orientation == 'horizontal' else None
+    rows: None if root.screen_orientation == 'horizontal' else 2
     spacing: 10
     padding: 10
 

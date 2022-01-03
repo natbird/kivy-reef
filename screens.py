@@ -1,11 +1,13 @@
 from kivy.app import App
+from kivy.event import EventDispatcher
 from kivy.lang import Builder
-from kivy.clock import Clock
+from kivy.core.window import Window
+from kivy.properties import OptionProperty, ObjectProperty
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.layout import Layout
 from kivy.uix.screenmanager import Screen
 from kivy.uix.button import Button
+from kivy.uix.widget import Widget
 
 from system import SystemWidget
 from mqtt import MqttWidget
@@ -30,11 +32,20 @@ def ScreenMaker(widget_screen_type, name):
     
     return new_screen
 
-class HomeScreen(Screen):
+class HomeScreen(Screen, EventDispatcher):
+    screen_orientation = OptionProperty("horizontal", options=["vertical", "horizontal"])
+
     def __init__(self, **kwargs) -> None:
         super(HomeScreen, self).__init__(**kwargs)
+        Window.bind(on_resize=self.getOrientation)
+    
+    def getOrientation(self, *wargs):
+        if Window.height < Window.width:
+            self.screen_orientation = 'horizontal'
+        else:
+            self.screen_orientation = 'vertical'
 
-class SystemScreen(Screen):
+class SystemScreen(Screen, EventDispatcher):
     def __init__(self, **kwargs) -> None:
         super(SystemScreen, self).__init__(**kwargs)
         self.add_widget(SystemWidget(App.get_running_app().connection))
@@ -47,11 +58,16 @@ class LightsScreen(Screen):
         if App.get_running_app().mqtt_connection:
             layout.add_widget(MqttWidget(App.get_running_app().mqtt_connection, App.get_running_app().config.get('mqtt', 'topic1'), App.get_running_app().config.get('mqtt', 'topic1_name')))
 
-class WidgetScreen(Screen):
+class WidgetScreen(Screen, EventDispatcher):
     layout = None
+    screen_orientation = OptionProperty("None", options=["vertical", "horizontal", "None"])
 
     def __init__(self, **kwargs) -> None:
         super(WidgetScreen, self).__init__(**kwargs)
+        
+        Window.bind(on_resize=self.getOrientation)
+        self.bind(screen_orientation=self.redo_layout)
+        
         self.add_widget(self.layout)
         
         if self.entities:
@@ -65,16 +81,26 @@ class WidgetScreen(Screen):
         self.layout.clear_widgets()
         self.createWidgets()
         self.entities.changed = False
+    
+    def getOrientation(self, *wargs):
+        if Window.height < Window.width:
+            self.screen_orientation = 'horizontal'
+        else:
+            self.screen_orientation = 'vertical'
+
+    def redo_layout(self, *args):
+        pass
 
 class SensorsScreen(WidgetScreen):
     entities = None
 
     def __init__(self, **kwargs) -> None:
-        if App.get_running_app().config.get('display', 'orientation') == 'horizontal':
+        self.getOrientation()
+        if self.screen_orientation == 'horizontal':
             self.layout = GridLayout(cols=2, padding=10, spacing=10)
         else:
             self.layout = GridLayout(cols=1, padding=10, spacing=10)
-        
+
         self.temp_entities = App.get_running_app().tc_dict
         if self.temp_entities:
             self.temp_entities.changedBind(self.recreateWidgets) # Bind the changed property to the recreateWidgets function
@@ -101,6 +127,12 @@ class SensorsScreen(WidgetScreen):
         self.createWidgets()
         self.temp_entities.changed = False
         self.ph_entities.changed = False
+    
+    def redo_layout(self, *args):
+        if self.screen_orientation == 'vertical':
+            self.layout.cols=1
+        else:
+            self.layout.cols=2
 
 class EquipmentScreen(WidgetScreen):
     layout = BoxLayout(orientation='vertical', padding=10)
@@ -116,7 +148,8 @@ class UsageScreen(WidgetScreen):
     entities = None
 
     def __init__(self, **kwargs) -> None:
-        if App.get_running_app().config.get('display', 'orientation') == 'horizontal':
+        self.getOrientation()
+        if self.screen_orientation == 'horizontal':
             self.layout = GridLayout(cols=3, padding=10, spacing=15)
         else:
             self.layout = GridLayout(cols=2, padding=10, spacing=15)
@@ -147,6 +180,12 @@ class UsageScreen(WidgetScreen):
         self.createWidgets()
         self.ato_entities.changed = False
         self.doser_entities.changed = False
+    
+    def redo_layout(self, *args):
+        if self.screen_orientation == 'vertical':
+            self.layout.cols=2
+        else:
+            self.layout.cols=3
 
 class MacrosScreen(WidgetScreen):
     layout = BoxLayout(orientation='vertical', padding=10)
