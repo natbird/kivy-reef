@@ -3,19 +3,21 @@
         size: root.size
         pos: root.pos
         orientation: 'horizontal'
-        padding: 20
+        padding: 10
         
-        Label:
+        DLabel:
             text: root.name
+            font_size: self.height / 4
             size_hint_x: 0.5
         
-        Button:
+        DButton:
             text: 'Run'
+            font_size: self.height / 4
             on_press: root.run()
             on_release: reverse_button.background_color = 'lime'
             size_hint_x: 0.25
         
-        Button:
+        DButton:
             id: reverse_button
             disabled: True if root.reversible == False else False
             text: 'Reverse' if root.reversible == True else 'Not Reversible'

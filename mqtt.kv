@@ -9,10 +9,10 @@
     on_press: button_image.color = 'yellow'
     on_release: button_image.color = 'white'
 
-    Label:
+    DLabel:
         id: button_top_label
         text: root.top_label_text
-        font_size: '10sp'
+        font_size: self.width / 20
         size_hint_y: 0.15
     Image:
         id: button_image
@@ -20,10 +20,10 @@
         size_hint_y: 0.55
         allow_stretch: True
         keep_ratio: True
-    Label:
+    DLabel:
         id: button_bottom_label
         text: root.bottom_label_text
-        font_size: '20sp'
+        font_size: self.width / 20
         size_hint_y: 0.3
 
 <MqttWidget>:

@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "kivy-reef"
+version = "0.1.0"
+description = "Kivy Reef is an interface for reef-pi."
+authors = ["NXE"]
+license = "GLP3"
+readme = "README.md"
+packages = [{include = "kivy_reef"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.31.0"
+Kivy = "^2.2.0"
+paho-mqtt = "^1.6.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

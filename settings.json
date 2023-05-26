@@ -1,0 +1,178 @@
+[
+    {
+        "type": "title",
+        "title": "Display"
+    },
+    {
+        "type": "options",
+        "title": "Orientation",
+        "desc": "Display orientation",
+        "section": "display",
+        "key": "screen_orientation",
+        "options": ["vertical", "horizontal"]
+    },
+    {
+        "type": "title",
+        "title": "Reef-pi Server"
+    },
+    {
+        "type": "string",
+        "title": "Reef-pi Hostname/IP",
+        "desc": "Reef-pi server hostname/IP address",
+        "section": "server",
+        "key": "host"
+    },
+    {
+        "type": "string",
+        "title": "Username",
+        "desc": "Reef-pi server username",
+        "section": "server",
+        "key": "user_name"
+    },
+    {
+        "type": "string",
+        "title": "Password",
+        "desc": "Reef-pi server password",
+        "section": "server",
+        "key": "password"
+    },
+    {
+        "type": "numeric",
+        "title": "Timeout",
+        "desc": "Connection timeout threshold",
+        "section": "server",
+        "key": "timeout"
+    },
+    {
+        "type": "numeric",
+        "title": "Reconnect Interval",
+        "desc": "Reconnection interval",
+        "section": "server",
+        "key": "reconnect_interval"
+    },
+    {
+        "type": "title",
+        "title": "Admin Controls"
+    },
+    {
+        "type": "bool",
+        "title": "Allow Reload",
+        "desc": "Allow reloading the Reef-pi server",
+        "section": "admin",
+        "key": "allow_reload"
+    },
+    {
+        "type": "bool",
+        "title": "Allow Restart",
+        "desc": "Allow restarting the Reef-pi host",
+        "section": "admin",
+        "key": "allow_restart"
+    },
+    {
+        "type": "bool",
+        "title": "Allow Shutdown",
+        "desc": "Allow shutdown of the Reef-pi host",
+        "section": "admin",
+        "key": "allow_poweroff"
+    },
+    {
+        "type": "title",
+        "title": "Home Screen"
+    },
+    {
+        "type": "bool",
+        "title": "Show CPU Temperature",
+        "desc": "Display the CPU temperature on the Home screen",
+        "section": "home",
+        "key": "show_cpu_temp"
+    },
+    {
+        "type": "bool",
+        "title": "Show Version",
+        "desc": "Display the Reef-pi version on the Home screen",
+        "section": "home",
+        "key": "show_version"
+    },
+    {
+        "type": "title",
+        "title": "Sensors Screen"
+    },
+    {
+        "type": "string",
+        "title": "Flowmeter Identifier",
+        "desc": "Text string used to identify flowmeters (e.g. 'flow')",
+        "section": "sensors",
+        "key": "flowmeter_name"
+    },
+    {
+        "type": "string",
+        "title": "Flowmeter Unit",
+        "desc": "Unit to display for flowmeter readings",
+        "section": "sensors",
+        "key": "flowmeter_unit"
+    },
+    {
+        "type": "title",
+        "title": "Usage Screen"
+    },
+    {
+        "type": "string",
+        "title": "ATOs to Exclude",
+        "desc": "Add the names of any level sensors you want to exclude from the Usage screen",
+        "section": "usage",
+        "key": "ato_ignore"
+    },
+    {
+        "type": "string",
+        "title": "Dosers to Exclude",
+        "desc": "Add the names of any dosing entities you want to exclude from the Usage screen",
+        "section": "usage",
+        "key": "doser_ignore"
+    },
+    {
+        "type": "title",
+        "title": "MQTT"
+    },
+    {
+        "type": "bool",
+        "title": "Enable MQTT Support",
+        "desc": "Set whether MQTT support enabled",
+        "section": "mqtt",
+        "key": "enable"
+    },
+    {
+        "type": "string",
+        "title": "MQTT Broker Address",
+        "desc": "IP address/hostname of the MQTT broker",
+        "section": "mqtt",
+        "key": "broker"
+    },
+    {
+        "type": "string",
+        "title": "MQTT Port",
+        "desc": "Port number for the MQTT broker",
+        "section": "mqtt",
+        "key": "port"
+    },
+    {
+        "type": "string",
+        "title": "MQTT Keepalive",
+        "desc": "Keepalive value",
+        "section": "mqtt",
+        "key": "keepalive"
+    },
+    {
+        "type": "string",
+        "title": "MQTT Topic 1",
+        "desc": "MQTT topic to publish",
+        "section": "mqtt",
+        "key": "topic1"
+    },
+    {
+        "type": "string",
+        "title": "MQTT Topic 1",
+        "desc": "Name for MQTT topic",
+        "section": "mqtt",
+        "key": "topic1_name"
+    }
+]

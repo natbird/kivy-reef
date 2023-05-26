@@ -1,5 +1,5 @@
 # Local config file
-reefpi.ini
+*.ini
 
 # MacOS DS Store files
 .DS_STORE
@@ -13,7 +13,9 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+.buildozer
 .Python
+bin/
 build/
 develop-eggs/
 dist/
@@ -96,6 +98,9 @@ ipython_config.py
 #   having no cross-platform support, pipenv may install dependencies that don't work, or not
 #   install all needed dependencies.
 #Pipfile.lock
+
+# poetry
+poetry.lock
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
