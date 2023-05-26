@@ -27,11 +27,17 @@ class Entity(Widget):
         new_value = False
 
         if self.entity_type == 'temperature':
-            new_value = round(self.___get_current_reading(), 2)
+            reading = self.___get_current_reading()
+            if reading:
+                new_value = round(reading, 2)
         elif self.entity_type == 'ph':
-            new_value = round(self.___get_last_reading(), 2)
+            reading = self.___get_last_reading()
+            if reading:
+                new_value = round(reading, 2)
         elif self.entity_type == 'flowmeter':
-            new_value = round(self.___get_last_reading(), 0)
+            reading = self.___get_last_reading()
+            if reading:
+                new_value = round(reading, 0)
         elif self.entity_type == 'equipment':
             new_value = self.___get_state()
         elif self.entity_type == 'ato':

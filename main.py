@@ -89,7 +89,7 @@ class KivyReefApp(App, EventDispatcher):
 
     def build_config(self, config):
         config.setdefaults('display', {
-            'orientation': 'vertical'
+            'screen_orientation': 'vertical'
         })
         config.setdefaults('server', {
             'host': 'http://127.0.0.1',

@@ -8,7 +8,7 @@
         "title": "Orientation",
         "desc": "Display orientation",
         "section": "display",
-        "key": "orientation",
+        "key": "screen_orientation",
         "options": ["vertical", "horizontal"]
     },
     {

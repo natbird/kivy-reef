@@ -12,13 +12,22 @@ class MqttConnection():
     def __init__(self, broker, port, keepalive=60) -> None:
         self.client = mqtt.Client()
         self.client.loop_start()
-        self.client.connect(broker, int(port), int(keepalive))
+        try:
+            self.client.connect(broker, int(port), int(keepalive))
+        except TimeoutError:
+            pass
     
     def publish(self, topic, payload):
-        self.client.publish(topic, payload)
+        try:
+            self.client.publish(topic, payload)
+        except TimeoutError:
+            return False
     
     def subscribe(self, topic):
-        self.client.subscribe(topic)
+        try:
+            self.client.subscribe(topic)
+        except TimeoutError:
+            return False
 
 class MqttWidget(Widget):
     connection = ObjectProperty(None)
@@ -34,8 +43,8 @@ class MqttWidget(Widget):
 
     def pressed(self):
         if self.on:
-            self.connection.publish(self.topic, '{"state": "OFF"}')
-            self.on = False
+            if self.connection.publish(self.topic, '{"state": "OFF"}'):
+                self.on = False
         else:
-            self.connection.publish(self.topic, '{"state": "ON"}')
-            self.on = True
+            if self.connection.publish(self.topic, '{"state": "ON"}'):
+                self.on = True
